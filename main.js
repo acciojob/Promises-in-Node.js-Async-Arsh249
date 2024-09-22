@@ -27,6 +27,17 @@ function modifyText(text) {
   });
 }
 
+if (!filePath) {
+  console.error("Please provide a valid file path.");
+  process.exit(1);
+}
+
+// Validate if the file path exists and is a file
+if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
+  console.error("Invalid file path provided. Please check the file path.");
+  process.exit(1);
+}
+
 readFileAsync(filePath)
   .then((data) => modifyText(data))
   .then((modifiedText) => {
